@@ -1,0 +1,25 @@
+class Solution:
+    def numUniqueEmails(self, emails: List[str]) -> int:
+        result=set()
+        for email in emails:
+            name, domain= email.split("@")
+            local=name.split("+")[0].replace(".","")
+            result.add(local+"@"+domain)
+        return len(result)
+
+Another approach:
+class Solution:
+    def numUniqueEmails(self, emails: List[str]) -> int:
+        unique = set()
+
+        for email in emails:
+            i, local = 0, ""
+            while email[i] not in ["@", "+"]:
+                if email[i] != ".":
+                    local += email[i]
+                i += 1
+            while email[i] != "@":
+                i += 1
+            domain = email[i + 1 :]
+            unique.add((local, domain))
+        return len(unique)
